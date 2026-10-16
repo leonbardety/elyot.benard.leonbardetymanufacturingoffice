@@ -43,14 +43,19 @@
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('accueil')">
-                    <div class="bg-lbo-dark text-white px-3 py-2 rounded-lg font-bold text-xl tracking-wider">
-                        LBMO<span class="text-lbo-red">.</span>
-                    </div>
-                    <div>
-                        <span class="font-bold text-lg text-gray-900 block leading-tight">LBMO - Conception</span>
-                        <span class="text-xs text-gray-500 font-medium">Léon Bardety Manufacturing Office</span>
+                <!-- Logo & Version Temporaire -->
+                <div class="flex items-center space-x-3">
+                    <!-- Badge de version temporaire (suivi des versions) -->
+                    <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200" title="Numéro de version temporaire pour suivi">v0.1.0</span>
+
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('accueil')">
+                        <div class="bg-lbo-dark text-white px-3 py-2 rounded-lg font-bold text-xl tracking-wider">
+                            LBMO<span class="text-lbo-red">.</span>
+                        </div>
+                        <div>
+                            <span class="font-bold text-lg text-gray-900 block leading-tight">LBMO - Conception</span>
+                            <span class="text-xs text-gray-500 font-medium">Léon Bardety Manufacturing Office</span>
+                        </div>
                     </div>
                 </div>
 
@@ -496,6 +501,7 @@
                         <!-- FormSubmit Options -->
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="Nouvelle demande - LBMO Conception">
+                        <input type="hidden" name="_template" value="table">
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
@@ -590,7 +596,7 @@
                 </div>
 
                 <div class="text-xs text-gray-500 text-center md:text-right">
-                    &copy; 2026 LBMO - Conception (Léon Bardety Manufacturing Office). Tous droits réservés.<br>
+                    &copy; 2026 LBMO - Conception (Léon Bardety Manufacturing Office) - v0.1.0<br>
                     Contact direct : elyot.benard.lb@proton.me
                 </div>
             </div>
