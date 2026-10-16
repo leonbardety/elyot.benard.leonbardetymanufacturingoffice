@@ -39,13 +39,18 @@
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
 
+    <!-- BANDEAU DE CONFIRMATION DU FORMULAIRE (Affiché dynamiquement après succès) -->
+    <div id="success-banner" class="hidden bg-emerald-600 text-white text-center py-3 px-4 font-semibold text-sm shadow-md transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check mr-2"></i> Votre message a bien été envoyé ! Un e-mail de confirmation vous a également été adressé.
+    </div>
+
     <!-- HEADER / NAVIGATION -->
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <header class="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <!-- Logo & Version v0.1.1 (uniquement dans la nav) -->
+                <!-- Logo & Version v0.1.2 -->
                 <div class="flex items-center space-x-3">
-                    <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200" title="Suivi des versions">v0.1.1</span>
+                    <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200" title="Suivi des versions">v0.1.2</span>
 
                     <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('accueil')">
                         <div class="bg-lbo-dark text-white px-3 py-2 rounded-lg font-bold text-xl tracking-wider">
@@ -495,13 +500,16 @@
                         <p class="text-gray-600 text-sm">Remplissez le formulaire ci-dessous. Les demandes sont traitées en priorité.</p>
                     </div>
 
-                    <!-- FormSubmit Configuration -->
-                    <form action="https://formsubmit.co/elyot.benard.lb@proton.me" method="POST" enctype="multipart/form-data" target="_blank" class="space-y-6">
-                        <!-- FormSubmit Options -->
+                    <!-- FormSubmit Configuration (Sans nouvel onglet, avec redirection vers l'ancre/page de succès et auto-réponse pour l'expéditeur) -->
+                    <form action="https://formsubmit.co/elyot.benard.lb@proton.me" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        <!-- Options FormSubmit -->
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="Nouvelle demande - LBMO Conception">
                         <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_next" value="https://leonbardety.github.io/elyot.benard.leonbardeymanufacturingoffice/">
+                        <!-- Redirection vers la page d'accueil (ou l'URL du site) avec ?success=true pour afficher le message -->
+                        <input type="hidden" name="_next" value="https://leonbardety.github.io/elyot.benard.leonbardeymanufacturingoffice/?success=true">
+                        <!-- Auto-réponse envoyée à la personne qui remplit le formulaire -->
+                        <input type="hidden" name="_autoresponse" value="Bonjour, nous avons bien reçu votre demande sur LBMO - Conception. Notre équipe vous recontactera dans les plus brefs délais.">
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
@@ -603,7 +611,7 @@
         </div>
     </footer>
 
-    <!-- SPA NAVIGATION SCRIPT -->
+    <!-- SPA NAVIGATION & SUCCESS SCRIPT -->
     <script>
         function switchView(viewId) {
             // Cacher toutes les sections
@@ -639,6 +647,24 @@
         function toggleMobileMenu() {
             mobileMenu.classList.add('hidden');
         }
+
+        // Vérification automatique du retour de formulaire réussi au chargement de la page
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                const banner = document.getElementById('success-banner');
+                if (banner) {
+                    banner.classList.remove('hidden');
+                    // Optionnel : faire défiler vers le haut pour voir la notification de succès
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                // Nettoyer l'URL proprement pour enlever ?success=true sans recharger la page
+                if (window.history.replaceState) {
+                    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.replaceState({path: cleanUrl}, '', cleanUrl);
+                }
+            }
+        });
     </script>
 </body>
 </html>
