@@ -43,9 +43,8 @@
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <!-- Logo & Version Temporaire -->
+                <!-- Logo & Version Temporaire (uniquement dans la nav) -->
                 <div class="flex items-center space-x-3">
-                    <!-- Badge de version temporaire (suivi des versions) -->
                     <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200" title="Numéro de version temporaire pour suivi">v0.1.0</span>
 
                     <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('accueil')">
@@ -496,12 +495,13 @@
                         <p class="text-gray-600 text-sm">Remplissez le formulaire ci-dessous. Les demandes sont traitées en priorité.</p>
                     </div>
 
-                    <!-- FormSubmit Configuration -->
-                    <form action="https://formsubmit.co/elyot.benard.lb@proton.me" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <!-- FormSubmit Configuration (target="_blank" pour ouvrir dans un nouvel onglet) -->
+                    <form action="https://formsubmit.co/elyot.benard.lb@proton.me" method="POST" enctype="multipart/form-data" target="_blank" class="space-y-6">
                         <!-- FormSubmit Options -->
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="Nouvelle demande - LBMO Conception">
                         <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://leonbardety.github.io/elyot.benard.leonbardeymanufacturingoffice/">
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
@@ -596,7 +596,7 @@
                 </div>
 
                 <div class="text-xs text-gray-500 text-center md:text-right">
-                    &copy; 2026 LBMO - Conception (Léon Bardety Manufacturing Office) - v0.1.0<br>
+                    &copy; 2026 LBMO - Conception (Léon Bardety Manufacturing Office). Tous droits réservés.<br>
                     Contact direct : elyot.benard.lb@proton.me
                 </div>
             </div>
