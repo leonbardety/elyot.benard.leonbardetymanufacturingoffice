@@ -1,1 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBMO - Conception | Bureau d'Études & Freelance Industriel</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lbo: {
+                            dark: '#111827',
+                            gray: '#374151',
+                            light: '#F3F4F6',
+                            red: '#DC2626',
+                            redHover: '#B91C1C',
+                            accent: '#4B5563'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
 
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('accueil')">
+                    <div class="bg-lbo-dark text-white px-3 py-2 rounded-lg font-bold text-xl tracking-wider">
+                        LBMO<span class="text-lbo-red">.</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-gray-900 block leading-tight">LBMO - Conception</span>
+                        <span class="text-xs text-gray-500 font-medium">Léon Bardety Manufacturing Office</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-4 items-center font-medium text-sm">
+                    <button onclick="switchView('accueil')" data-target="accueil" class="nav-link px-3 py-2 rounded-md text-gray-700 hover:text-lbo-red hover:bg-gray-50 transition">Accueil</button>
+                    <button onclick="switchView('cao')" data-target="cao" class="nav-link px-3 py-2 rounded-md text-gray-700 hover:text-lbo-red hover:bg-gray-50 transition">CAO</button>
+                    <button onclick="switchView('fao')" data-target="fao" class="nav-link px-3 py-2 rounded-md text-gray-700 hover:text-lbo-red hover:bg-gray-50 transition">FAO</button>
+                    <button onclick="switchView('be')" data-target="be" class="nav-link px-3 py-2 rounded-md text-gray-700 hover:text-lbo-red hover:bg-gray-50 transition">Bureau d'Études</button>
+                    <button onclick="switchView('liaison')" data-target="liaison" class="nav-link px-3 py-2 rounded-md text-gray-700 hover:text-lbo-red hover:bg-gray-50 transition">Liaison Fabrication</button>
+                    <button onclick="switchView('planning')" data-target="planning" class="nav-link px-3 py-2 rounded-md text-gray-700 hover:text-lbo-red hover:bg-gray-50 transition">Planning</button>
+                    <button onclick="switchView('urgence')" data-target="urgence" class="nav-link px-3 py-2 rounded-md text-lbo-red font-semibold hover:bg-red-50 transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-triangle-exclamation"></i><span>Urgence & Astreinte</span>
+                    </button>
+                </nav>
+
+                <!-- CTA Contact Desktop -->
+                <div class="hidden md:flex items-center">
+                    <button onclick="switchView('contact')" class="bg-lbo-red text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-lbo-redHover transition shadow-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Contact & Devis</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-lbo-red focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchView('accueil'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-lbo-red">Accueil</button>
+            <button onclick="switchView('cao'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-lbo-red">CAO</button>
+            <button onclick="switchView('fao'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-lbo-red">FAO</button>
+            <button onclick="switchView('be'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-lbo-red">Bureau d'Études</button>
+            <button onclick="switchView('liaison'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-lbo-red">Liaison Fabrication</button>
+            <button onclick="switchView('planning'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-lbo-red">Planning</button>
+            <button onclick="switchView('urgence'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-lbo-red hover:bg-red-50 flex items-center space-x-2">
+                <i class="fa-solid fa-triangle-exclamation"></i><span>Urgence & Astreinte</span>
+            </button>
+            <button onclick="switchView('contact'); toggleMobileMenu()" class="block w-full text-center mt-2 bg-lbo-red text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-lbo-redHover">Contact & Devis</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER (SPA VIEWS) -->
+    <main class="flex-grow">
+
+        <!-- 1. ACCUEIL -->
+        <section id="view-accueil" class="view-section active">
+            <!-- Hero Section -->
+            <div class="relative bg-lbo-dark text-white overflow-hidden py-24 lg:py-32">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#DC2626_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="max-w-3xl">
+                        <span class="inline-flex items-center space-x-2 bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-xs font-semibold mb-6 border border-gray-700">
+                            <i class="fa-solid fa-check text-lbo-red"></i>
+                            <span>Freelance Industriel & Bureau d'Études Mécanique</span>
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                            Expertise en Conception <span class="text-lbo-red">Mécanique</span> & Rigueur Industrielle
+                        </h1>
+                        <p class="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed">
+                            Accompagnement sur-mesure pour les industriels, fabricants de machines spéciales et bureaux d'études : modélisation 3D, plans de fabrication, programmation FAO et liaison technique.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="switchView('contact')" class="bg-lbo-red hover:bg-lbo-redHover text-white px-8 py-4 rounded-xl font-bold text-base transition shadow-lg text-center">
+                                Confier un projet CAO
+                            </button>
+                            <button onclick="switchView('cao')" class="bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 px-8 py-4 rounded-xl font-bold text-base transition text-center">
+                                Découvrir nos services
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prestations Clés Overview -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Nos Domaines d'Expertise</h2>
+                        <p class="text-gray-600">Une maîtrise complète de la chaîne numérique industrielle, de l'idée initiale au fichier de production.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- CAO Card -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-md transition cursor-pointer" onclick="switchView('cao')">
+                            <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                                <i class="fa-solid fa-cube"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">CAO</h3>
+                            <p class="text-gray-600 text-sm mb-6 leading-relaxed">Modélisation 3D avancée, plans de fabrication rigoureux, tolérancement géométrique et assemblages complexes.</p>
+                            <span class="text-lbo-red font-semibold text-sm flex items-center space-x-1 hover:underline">
+                                <span>En savoir plus</span><i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+
+                        <!-- FAO Card -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-md transition cursor-pointer" onclick="switchView('fao')">
+                            <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                                <i class="fa-solid fa-gears"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">FAO</h3>
+                            <p class="text-gray-600 text-sm mb-6 leading-relaxed">Programmation CN, optimisation des parcours d'outils et sécurisation des usinages pour vos centres de fraisage et tournage.</p>
+                            <span class="text-lbo-red font-semibold text-sm flex items-center space-x-1 hover:underline">
+                                <span>En savoir plus</span><i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+
+                        <!-- BE Card -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-md transition cursor-pointer" onclick="switchView('be')">
+                            <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                                <i class="fa-solid fa-drafting-compass"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Bureau d'Études</h3>
+                            <p class="text-gray-600 text-sm mb-6 leading-relaxed">Ingénierie mécanique, dimensionnement, choix des matériaux et conception de machines spéciales sur-mesure.</p>
+                            <span class="text-lbo-red font-semibold text-sm flex items-center space-x-1 hover:underline">
+                                <span>En savoir plus</span><i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+
+                        <!-- Liaison Fabrication Card -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-md transition cursor-pointer" onclick="switchView('liaison')">
+                            <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                                <i class="fa-solid fa-bridge"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Liaison Fabrication</h3>
+                            <p class="text-gray-600 text-sm mb-6 leading-relaxed">Rôle d'intermédiaire technique entre vos exigences et vos sous-traitants (découpe, pliage, prototypage, usinage).</p>
+                            <span class="text-lbo-red font-semibold text-sm flex items-center space-x-1 hover:underline">
+                                <span>En savoir plus</span><i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CAO -->
+        <section id="view-cao" class="view-section py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-lbo-red font-bold text-sm tracking-wider uppercase">Conception Assistée par Ordinateur</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-6">Modélisation 3D et Dessin Industriel de Précision</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            LBMO - Conception met à votre disposition une expertise pointue en modélisation 3D paramétrique et mise en plan sous SolidWorks et Fusion 360. Nous transformons vos spécifications fonctionnelles en nomenclatures et dossiers de fabrication exploitables immédiatement.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Conception d'ensembles et sous-ensembles mécaniques complexes.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Mise en plan détaillée selon les normes en vigueur (ISO / GPS).</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Tolérancement géométrique et dimensionnel (GTOL).</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Export multi-formats sécurisé (.STEP, .DXF, .SLDPRT, .IGES, etc.).</span>
+                            </li>
+                        </ul>
+                        <button onclick="switchView('contact')" class="bg-lbo-dark hover:bg-gray-800 text-white px-6 py-3 rounded-xl font-semibold transition">
+                            Demander une étude CAO
+                        </button>
+                    </div>
+                    <div class="bg-gray-100 p-8 rounded-3xl border border-gray-200">
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2 flex items-center space-x-2">
+                                    <i class="fa-solid fa-bolt text-lbo-red"></i><span>Réactivité & Surcharge</span>
+                                </h4>
+                                <p class="text-gray-600 text-sm">Absorbez vos pics d'activité saisonniers ou vos retards de planning sans alourdir votre masse salariale interne.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2 flex items-center space-x-2">
+                                    <i class="fa-solid fa-shield-halved text-lbo-red"></i><span>Confidentialité Absolue</span>
+                                </h4>
+                                <p class="text-gray-600 text-sm">Respect total de vos secrets industriels, signature d'accords de non-divulgation (NDA) systématique sur demande.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FAO -->
+        <section id="view-fao" class="view-section py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1 bg-gray-100 p-8 rounded-3xl border border-gray-200">
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Optimisation des Temps de Cycle</h4>
+                                <p class="text-gray-600 text-sm">Génération de parcours d'outils efficients pour réduire l'usure machine et maximiser la productivité atelier.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Sécurisation des Usinages</h4>
+                                <p class="text-gray-600 text-sm">Simulation numérique des trajectoires pour éliminer tout risque de collision avant transfert sur commande numérique.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <span class="text-lbo-red font-bold text-sm tracking-wider uppercase">Fabrication Assistée par Ordinateur</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-6">Programmation CN & Parcours d'Outils</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Le pont parfait entre la conception géométrique et la réalité de l'atelier. Nous assurons la programmation FAO de vos pièces prismatiques ou complexes pour alimenter vos machines-outils en toute sérénité.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Usinage 2.5 axes et 3 axes avancés.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Gestion des stratégies d'ébauche dynamique et de finition haute précision.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Édition et vérification de programmes CN adaptés à votre parc machines.</span>
+                            </li>
+                        </ul>
+                        <button onclick="switchView('contact')" class="bg-lbo-dark hover:bg-gray-800 text-white px-6 py-3 rounded-xl font-semibold transition">
+                            Confier une programmation FAO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. BUREAU D'ÉTUDES (BE) -->
+        <section id="view-be" class="view-section py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <span class="text-lbo-red font-bold text-sm tracking-wider uppercase">Ingénierie Mécanique</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-4">Bureau d'Études & Dimensionnement</h2>
+                    <p class="text-gray-600">De l'étude de faisabilité à la validation technique de vos équipements industriels et machines spéciales.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl">
+                        <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Machines Spéciales</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Conception d'unités de production sur-mesure, postes de montage automatisés et bancs d'essai ergonomiques.</p>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl">
+                        <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Dimensionnement</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Notes de calculs mécaniques, choix des composants standard (guidages, vérins, motoréducteurs) et résistance des matériaux.</p>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl">
+                        <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-xl flex items-center justify-center text-xl mb-6 font-bold">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Innovation & R&D</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Accompagnement dans la R&D de nouveaux produits, prototypage virtuel et analyse de valeur (DFM).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. LIAISON FABRICATION -->
+        <section id="view-liaison" class="view-section py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-lbo-red font-bold text-sm tracking-wider uppercase">Interface Technique</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-6">Liaison Fabrication & DFM (Design for Manufacturing)</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Évitez les incompréhensions entre le bureau d'études et l'atelier. LBMO - Conception joue le rôle d'intermédiaire technique privilégié pour garantir que vos plans sont parfaitement optimisés pour vos sous-traitants (découpe laser, pliage, soudage, usinage ou prototypage rapide).
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Vérification de la fabricabilité des pièces (DFM).</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Dialogue technique direct avec vos sous-traitants et fournisseurs.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-check text-lbo-red mt-1"></i>
+                                <span class="text-gray-700">Préparation des dossiers de consultation d'entreprise (DCE).</span>
+                            </li>
+                        </ul>
+                        <button onclick="switchView('contact')" class="bg-lbo-dark hover:bg-gray-800 text-white px-6 py-3 rounded-xl font-semibold transition">
+                            Sécuriser votre fabrication
+                        </button>
+                    </div>
+                    <div class="bg-gray-100 p-8 rounded-3xl border border-gray-200">
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Gain de Temps & Réduction des Coûts</h4>
+                                <p class="text-gray-600 text-sm">Anticipez les contraintes de fabrication dès la phase CAO pour éviter les retouches coûteuses en atelier.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Qualité Maîtrisée</h4>
+                                <p class="text-gray-600 text-sm">Un interlocuteur unique qui comprend aussi bien le langage des ingénieurs que celui des techniciens d'atelier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. PLANNING -->
+        <section id="view-planning" class="view-section py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <span class="text-lbo-red font-bold text-sm tracking-wider uppercase">Disponibilités en Temps Réel</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-4">Planning des Créneaux</h2>
+                    <p class="text-gray-600">Consultez nos disponibilités hebdomadaires. Par souci de confidentialité, les noms des entreprises clientes ne sont jamais divulgués.</p>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden max-w-4xl mx-auto">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-lbo-dark text-white text-sm">
+                                    <th class="py-4 px-6 font-semibold">Jour</th>
+                                    <th class="py-4 px-6 font-semibold">Journée (8h - 18h)</th>
+                                    <th class="py-4 px-6 font-semibold">Soirée & Nuit (18h - 23h / Astreinte)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 text-sm">
+                                <tr>
+                                    <td class="py-4 px-6 font-medium text-gray-900">Lundi</td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible</span></td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible (Astreinte)</span></td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Mardi</td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible</span></td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-semibold">Occupé</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-6 font-medium text-gray-900">Mercredi</td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible</span></td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible (Astreinte)</span></td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Jeudi</td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible</span></td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible (Astreinte)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-6 font-medium text-gray-900">Vendredi</td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible</span></td>
+                                    <td class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Disponible (Astreinte)</span></td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-4 px-6 font-medium text-gray-900">Samedi</td>
+                                    <td colspan="2" class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Créneaux Urgences / Week-end (8h - 16h) : Ouverts sur réservation</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-6 font-medium text-gray-900">Dimanche</td>
+                                    <td colspan="2" class="py-4 px-6"><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Créneaux Urgences / Week-end (8h - 16h) : Ouverts sur réservation</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-6 bg-gray-50 border-t border-gray-200 text-center">
+                        <p class="text-xs text-gray-500 mb-4">Pour réserver une astreinte dédiée ou planifier un renfort d'urgence, contactez-nous directement.</p>
+                        <button onclick="switchView('contact')" class="bg-lbo-red hover:bg-lbo-redHover text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition">
+                            Réserver un créneau
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. URGENCE & ASTREINTE (Page dédiée) -->
+        <section id="view-urgence" class="view-section py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <div class="inline-flex items-center space-x-2 bg-red-100 text-lbo-red px-4 py-1.5 rounded-full text-sm font-bold mb-4">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Service d'Astreinte & Intervention Rapide</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Évitez l'Arrêt de Production</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        Une modification de dernière minute ? Un plan bloqué en atelier ? LBMO - Conception propose une solution d'urgence en soirée (18h-23h) et les week-ends (Samedis & Dimanches) pour garantir des fichiers prêts dès le lundi matin première heure.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl text-center">
+                        <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-full flex items-center justify-center text-xl mx-auto mb-4 font-bold">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Soirs de Semaine</h3>
+                        <p class="text-gray-600 text-sm">Interventions planifiées ou urgentes de 18h00 à 23h00 du lundi au vendredi.</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl text-center">
+                        <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-full flex items-center justify-center text-xl mx-auto mb-4 font-bold">
+                            <i class="fa-solid fa-calendar-week"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Week-ends</h3>
+                        <p class="text-gray-600 text-sm">Disponibilités les Samedis et Dimanches de 8h00 à 16h00 pour débloquer vos dossiers.</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl text-center">
+                        <div class="w-12 h-12 bg-red-100 text-lbo-red rounded-full flex items-center justify-center text-xl mx-auto mb-4 font-bold">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Livrables Garantis</h3>
+                        <p class="text-gray-600 text-sm">Fichiers CAO et plans livrés à temps pour la reprise de l'atelier dès le lundi matin.</p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="switchView('contact')" class="bg-lbo-red hover:bg-lbo-redHover text-white px-8 py-4 rounded-xl font-bold text-base transition shadow-lg">
+                        Déclencher une demande d'urgence
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. CONTACT & URGENCE FORMULAIRE -->
+        <section id="view-contact" class="view-section py-16 lg:py-24 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white border border-gray-200 rounded-3xl shadow-sm p-8 sm:p-12">
+                    <div class="text-center mb-10">
+                        <span class="text-lbo-red font-bold text-sm tracking-wider uppercase">Contact & Demande d'Intervention</span>
+                        <h2 class="text-3xl font-extrabold text-gray-900 mt-2 mb-2">Parlons de votre projet ou de votre urgence</h2>
+                        <p class="text-gray-600 text-sm">Remplissez le formulaire ci-dessous. Les demandes sont traitées en priorité.</p>
+                    </div>
+
+                    <!-- FormSubmit Configuration -->
+                    <form action="https://formsubmit.co/elyot.benard.lb@proton.me" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        <!-- FormSubmit Options -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="Nouvelle demande - LBMO Conception">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nom de l'entreprise *</label>
+                                <input type="text" name="entreprise" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm" placeholder="ex: Industrie Mécanique SAS">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nom du contact *</label>
+                                <input type="text" name="nom" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm" placeholder="ex: Jean Dupont">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email professionnel *</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm" placeholder="j.dupont@entreprise.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Téléphone *</label>
+                                <input type="tel" name="telephone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm" placeholder="06 00 00 00 00">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Type de service requis *</label>
+                                <select name="service" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm bg-white">
+                                    <option value="CAO">Conception Assistée par Ordinateur (CAO)</option>
+                                    <option value="FAO">Fabrication Assistée par Ordinateur (FAO)</option>
+                                    <option value="Bureau d'Études">Bureau d'Études (BE / Ingénierie)</option>
+                                    <option value="Liaison Fabrication">Liaison Fabrication & DFM</option>
+                                    <option value="Astreinte / Urgence">Astreinte / Urgence (Soir / Week-end)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Choix du créneau d'urgence</label>
+                                <select name="creneau" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm bg-white">
+                                    <option value="Standard (Jour)">Standard (Horaires de bureau)</option>
+                                    <option value="Urgence Soir (18h - 23h)">Urgence Soir (18h - 23h)</option>
+                                    <option value="Urgence Week-end">Urgence Week-end (Samedi / Dimanche)</option>
+                                    <option value="Astreinte Dédiée">Astreinte Dédiée (Contrat spécifique)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Description du besoin ou du problème technique *</label>
+                            <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-lbo-red focus:border-transparent outline-none transition text-sm" placeholder="Précisez votre problématique, les logiciels utilisés (SolidWorks, Fusion 360) et les livrables attendus..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Dépôt de fichiers (Plans, schémas, cahier des charges)</label>
+                            <input type="file" name="attachment" class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-lbo-dark file:text-white hover:file:bg-gray-800 transition">
+                        </div>
+
+                        <div>
+                            <button type="submit" class="w-full bg-lbo-red hover:bg-lbo-redHover text-white py-4 rounded-xl font-bold text-base transition shadow-md flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Envoyer la demande</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-lbo-dark text-white border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white text-lbo-dark px-3 py-1.5 rounded-lg font-bold text-lg">
+                        LBMO<span class="text-lbo-red">.</span>
+                    </div>
+                    <div>
+                        <span class="font-bold block">LBMO - Conception</span>
+                        <span class="text-xs text-gray-400">Léon Bardety Manufacturing Office</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-300">
+                    <button onclick="switchView('accueil')" class="hover:text-lbo-red transition">Accueil</button>
+                    <button onclick="switchView('cao')" class="hover:text-lbo-red transition">CAO</button>
+                    <button onclick="switchView('fao')" class="hover:text-lbo-red transition">FAO</button>
+                    <button onclick="switchView('be')" class="hover:text-lbo-red transition">Bureau d'Études</button>
+                    <button onclick="switchView('liaison')" class="hover:text-lbo-red transition">Liaison Fabrication</button>
+                    <button onclick="switchView('planning')" class="hover:text-lbo-red transition">Planning</button>
+                    <button onclick="switchView('urgence')" class="hover:text-lbo-red transition">Urgence & Astreinte</button>
+                    <button onclick="switchView('contact')" class="hover:text-lbo-red transition">Contact</button>
+                </div>
+
+                <div class="text-xs text-gray-500 text-center md:text-right">
+                    &copy; 2026 LBMO - Conception (Léon Bardety Manufacturing Office). Tous droits réservés.<br>
+                    Contact direct : elyot.benard.lb@proton.me
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SPA NAVIGATION SCRIPT -->
+    <script>
+        function switchView(viewId) {
+            // Cacher toutes les sections
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Afficher la section cible
+            const targetView = document.getElementById('view-' + viewId);
+            if (targetView) {
+                targetView.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Mettre à jour l'état actif des liens de navigation si besoin
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-target') === viewId) {
+                    link.classList.add('text-lbo-red', 'font-semibold');
+                } else {
+                    link.classList.remove('text-lbo-red', 'font-semibold');
+                }
+            });
+        }
+
+        // Gestion du menu mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
